@@ -47,7 +47,9 @@ public class JwtAuthenticationController {
 
     private void authenticate(String username, String password) throws Exception {
         try {
-            //Internally Spring Security Authentication Manager calls loadUserByUsername when authenticating the user details provided by the user.
+            // We create a new UsernamePasswordAuthenticationToken and match it with what details are in the database.
+            // Internally Spring Security Authentication Manager calls loadUserByUsername of our JwtUserDetailsService
+            // when authenticating the user details provided by the user.
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);

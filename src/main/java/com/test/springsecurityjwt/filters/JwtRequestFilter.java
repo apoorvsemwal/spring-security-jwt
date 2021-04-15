@@ -17,8 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//Filters are basically ways to intercept any incoming request and checking its headers or doing something else.
 //The JwtRequestFilter extends the Spring Web Filter OncePerRequestFilter class.
-//For any incoming request this Filter class gets executed.
+//For any incoming request this Filter class gets executed - Only once per request.
 //It checks if the request has a valid JWT token.
 //If it has a valid JWT Token then it sets the Authentication in the context,
 //to specify that the current user is authenticated.
@@ -32,6 +33,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    //Filter chain to pass in the results to another filter.
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
@@ -74,6 +76,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }
         }
+
+        // Continuing the chain - Handing off the control to the next filter in the chain.
         chain.doFilter(request, response);
     }
 

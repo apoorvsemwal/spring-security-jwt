@@ -13,6 +13,7 @@ import java.util.ArrayList;
 //The Spring Security Authentication Manager calls this method for getting the user details from the database
 //when authenticating the user details provided by the user.
 //Here we are getting the user details from a hardcoded User List.
+//Ideally here we should have retrieved the User Details from a Database.
 
 //Also the password for a user is stored in encrypted format using BCrypt.
 //Here using the Online Bcrypt Generator you can generate the Bcrypt for a password.
@@ -23,6 +24,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if ("JwtTestEurekaUser".equals(username)) {
+            //Here we can even create our custom User Class and use that instead of the std User Class, if we want to.
             return new User("JwtTestEurekaUser", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
                     new ArrayList<>());
         } else {
