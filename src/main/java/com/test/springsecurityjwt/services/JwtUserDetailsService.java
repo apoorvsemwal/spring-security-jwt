@@ -24,7 +24,12 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if ("JwtTestEurekaUser".equals(username)) {
-            //Here we can even create our custom User Class and use that instead of the std User Class, if we want to.
+            // Here we can even create our custom User Class and use that instead of the std User Class, if we want to.
+            // Here its the password Hash. Hashing is different from encoding.
+            // The difference is that hashing is a one way function, where encryption is a two-way function.
+            // when a user submits a password, you don't decrypt your stored hash,
+            // instead you perform the same bcrypt operation on the user input and compare the hashes.
+            // If they're identical, you accept the authentication.
             return new User("JwtTestEurekaUser", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
                     new ArrayList<>());
         } else {
